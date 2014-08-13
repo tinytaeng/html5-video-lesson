@@ -1,0 +1,37 @@
+doctype
+meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no')
+meta(charset="utf-8")
+meta(name="mobile-web-app-capable", content="yes")
+
+title Video Tutorial
+
+link(rel='stylesheet', href='lib/bootstrap/css/bootstrap.min.css')
+
+script(src='/socket.io/socket.io.js')
+script(src='reload-client.js')
+script(src='lib/jade-runtime.js')
+script(src="lib/jquery.min.js")
+script(src="lib/bootstrap/js/bootstrap.min.js")
+
+style: :stylus
+  .center
+    text-align center
+.center
+  //- video attribute : width,height,autoplay
+  video(controls)
+    source(src="http://122.155.0.73/newkru/upload/ppt/tutor/v-E11PV-1.ogv#t=60,63")
+
+script: :coffee
+  window.startFlag = false
+  $ ->
+    $('video').on 'play', ->
+      console.info 'play'
+      window.startFlag = true
+    $('video').on 'pause', ->
+      console.info 'pause'
+    $('video').on 'ended', ->
+      console.info 'ended'
+    $('video').on 'timeupdate', ->
+      if window.startFlag
+        console.info $('video')[0].currentTime
+    $('video')[0].play()
